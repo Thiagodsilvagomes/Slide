@@ -1,4 +1,4 @@
-export default class Slide{
+export class Slide{
   constructor(slide, wrapper){
     this.slide = document.querySelector(slide);
     this.wrapper = document.querySelector(wrapper);
@@ -132,6 +132,9 @@ export default class Slide{
     this.onMove = this.onMove.bind(this);
 
     this.onResize = this.onResize.bind(this);
+    this.activePrevSlide = this.activePrevSlide.bind(this);
+    this.activeNextSlide = this.activeNextSlide.bind(this);
+
   }
 
   init(){
@@ -140,7 +143,22 @@ export default class Slide{
     this.addSlideEvents();
     this.slidesConfig();
     this.addResizeEvent();
+    this.changeSlide(0);
 
     return this;
+  }
+}
+
+export class SlideNav extends Slide{
+  addArrow(prev, next){
+    this.prevElement = document.querySelector(prev);
+    this.nextElement = document.querySelector(next);
+    this.addArrowEvents();
+  }
+
+  addArrowEvents(){
+    this.prevElement.addEventListener("click",this.activePrevSlide)
+    this.nextElement.addEventListener("click",this.activeNextSlide)
+
   }
 }
